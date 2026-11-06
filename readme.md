@@ -1,0 +1,1 @@
+This repository contains Måns Bremer’s code for the course FKA122 / FYM121 Computational physics.
