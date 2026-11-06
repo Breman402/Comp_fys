@@ -3,8 +3,9 @@
 
 int
 main()
-{
-    float *heap_array = (float *)malloc(sizeof(float) * 1000);
+{   
+    // Original value is 1000
+    float *heap_array = (float *)malloc(sizeof(float) * 20971520000);
     if(heap_array == NULL){
 	perror("malloc failed");
 	exit(1);

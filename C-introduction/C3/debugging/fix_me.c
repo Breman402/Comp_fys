@@ -18,6 +18,8 @@ double *linspace(double start, double end, int number_of_points)
     double dx = fabs((start-end) / (number_of_points-1));
 
     // Fill array
+    // If n = 1 used to be the case here, it should be n = 0
+    // Also removed a = for <=
     for(int n = 1; n <= number_of_points; n++){
 	data[n] = start + n*dx;
     }
@@ -37,6 +39,7 @@ double integrate(double *data, int number_of_points, double dx)
     double sum = 0;
 
     // carry out the trapezodial integral
+    // Changed n to start at 1 instead
     for(int n = 0; n < number_of_points; n++){
 	sum += (data[n - 1]+ data[n])*dx / 2;
     }
@@ -66,7 +69,7 @@ int main(int argc, char **argv)
 	   "The code is broken so please fix it.\n");
     // Setup linspace for integration
     int number_of_points = 10000;
-    int start = -4, end = 4;
+    double start = -4, end = 4;
     double *points = linspace(start, end, number_of_points);
 
     // calculate dx for integral

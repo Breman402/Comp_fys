@@ -51,7 +51,14 @@ add_executable(gsl_example
 
 target_link_libraries(gsl_example PRIVATE GSL::gsl)
 
-# Maximum optimization for ALL build configurations
+# C3 Code: ----------------------------------------------------
+add_executable(fix_me
+    C-introduction/C3/debugging/fix_me.c
+)
+
+target_link_libraries(fix_me PRIVATE m)
+
+# Maximum optimization for E1
 target_compile_options(E1 PRIVATE
     -O3
     -march=native
