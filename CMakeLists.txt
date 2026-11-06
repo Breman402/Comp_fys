@@ -10,6 +10,7 @@ add_executable(E1
     E1/main.c
 )
 
+# C1 Code: ----------------------------------------------------
 add_executable(types
     C-introduction/C1/types.c
 )
@@ -41,6 +42,14 @@ add_executable(stack_array
 add_executable(uninitialized
     C-introduction/C1/uninitialized.c
 )
+# C2 Code: ----------------------------------------------------
+find_package(GSL REQUIRED)
+
+add_executable(gsl_example
+    C-introduction/C2/gsl_example.c
+)
+
+target_link_libraries(gsl_example PRIVATE GSL::gsl)
 
 # Maximum optimization for ALL build configurations
 target_compile_options(E1 PRIVATE
