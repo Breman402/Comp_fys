@@ -49,7 +49,15 @@ add_executable(gsl_example
     C-introduction/C2/gsl_example.c
 )
 
+add_executable(C2
+    C-introduction/C2/main.c
+    C-introduction/C2/ownPairDistance.c
+    C-introduction/C2/ownScalar.c
+)
+
 target_link_libraries(gsl_example PRIVATE GSL::gsl)
+target_link_libraries(C2 PRIVATE GSL::gsl)
+target_link_libraries(C2 PRIVATE m)
 
 # C3 Code: ----------------------------------------------------
 add_executable(fix_me
