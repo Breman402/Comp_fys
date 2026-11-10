@@ -42,8 +42,39 @@ add_executable(stack_array
 add_executable(uninitialized
     C-introduction/C1/uninitialized.c
 )
+
+
+
 # C2 Code: ----------------------------------------------------
-find_package(GSL REQUIRED)
+find_package(GSL QUIET)
+
+if(NOT GSL_FOUND)
+    message(STATUS "GSL not installed. Fetching GSL...")
+
+    include(FetchContent)
+
+    # Disable unnecessary GSL features
+    set(NO_AMPL_BINDINGS ON CACHE BOOL "" FORCE)
+    set(GSL_DISABLE_TESTS ON CACHE BOOL "" FORCE)
+    set(GSL_INSTALL OFF CACHE BOOL "" FORCE)
+    set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
+
+    FetchContent_Declare(
+        gsl
+        GIT_REPOSITORY https://github.com/ampl/gsl.git
+        GIT_TAG master
+        GIT_SHALLOW TRUE
+    )
+
+    FetchContent_MakeAvailable(gsl)
+
+    # Provide the same target as find_package(GSL)
+    add_library(GSL::gsl ALIAS gsl)
+
+    message(STATUS "GSL fetched successfully!")
+else()
+    message(STATUS "Using installed GSL: ${GSL_VERSION}")
+endif()
 
 add_executable(gsl_example
     C-introduction/C2/gsl_example.c
@@ -57,7 +88,7 @@ add_executable(C2
 
 target_link_libraries(gsl_example PRIVATE GSL::gsl)
 target_link_libraries(C2 PRIVATE GSL::gsl)
-target_link_libraries(C2 PRIVATE m)
+
 
 # C3 Code: ----------------------------------------------------
 add_executable(fix_me
