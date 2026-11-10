@@ -102,6 +102,12 @@ add_executable(task_6
     E1/task_6.c
 )
 
+add_executable(task_7
+    E1/task_7.c
+)
+
+target_link_libraries(task_7 PRIVATE m)
+
 # Maximum optimization for E1
 target_compile_options(E1 PRIVATE
     -O3
