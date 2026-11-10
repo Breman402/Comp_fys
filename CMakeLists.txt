@@ -6,10 +6,6 @@ project(comp_fys LANGUAGES C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-add_executable(E1
-    E1/main.c
-)
-
 # C1 Code: ----------------------------------------------------
 add_executable(types
     C-introduction/C1/types.c
@@ -96,6 +92,15 @@ add_executable(fix_me
 )
 
 target_link_libraries(fix_me PRIVATE m)
+
+# E1 Code: ----------------------------------------------------
+add_executable(E1
+    E1/main.c
+)
+
+add_executable(task_6
+    E1/task_6.c
+)
 
 # Maximum optimization for E1
 target_compile_options(E1 PRIVATE
