@@ -83,7 +83,7 @@ add_executable(C2
 )
 
 target_link_libraries(gsl_example PRIVATE GSL::gsl)
-target_link_libraries(C2 PRIVATE GSL::gsl)
+target_link_libraries(C2 PRIVATE GSL::gsl m)
 
 
 # C3 Code: ----------------------------------------------------
