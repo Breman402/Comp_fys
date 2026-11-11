@@ -116,3 +116,9 @@ target_compile_options(E1 PRIVATE
     -O3
     -march=native
 )
+
+# Maximum optimization for task_7
+target_compile_options(task_7 PRIVATE
+    -O3
+    -march=native
+)
