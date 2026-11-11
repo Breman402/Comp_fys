@@ -45,7 +45,7 @@ void matrix_vector_multiplication(double *result, double **A, double *b, unsigne
 
 #define Np 32 // Number of particles
 #define time_step 0.1
-#define total_time 1000000.0 // 25000.0 for the OG, then 1000000.0 for task 10
+#define total_time 25000.0 // 25000.0 for the OG, then 1000000.0 for task 10
 #define a 0.1 // 0.0 for harmonic, 0.01 or 0.1 for anharmonic
 #define E0 Np
 
