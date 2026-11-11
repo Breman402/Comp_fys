@@ -94,6 +94,8 @@ add_executable(fix_me
 target_link_libraries(fix_me PRIVATE m)
 
 # E1 Code: ----------------------------------------------------
+include(FindOpenMP)
+
 add_executable(E1
     E1/main.c
 )
@@ -107,6 +109,7 @@ add_executable(task_7
 )
 
 target_link_libraries(task_7 PRIVATE m)
+target_link_libraries(task_7 PRIVATE OpenMP::OpenMP_C)
 
 # Maximum optimization for E1
 target_compile_options(E1 PRIVATE

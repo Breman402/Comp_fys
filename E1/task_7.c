@@ -41,16 +41,20 @@ void matrix_vector_multiplication(double *result, double **A, double *b, unsigne
     }
 }
 
-double positions[3] = {0.0, 0.0, 0.0};
-double Q[3] = {0.0, 0.0, 0.0};
-double energies[3] = {0.0, 0.0, 0.0};
-double velocities[3] = {0.0, 0.0, 0.0};
-const double N = 3; // Number of particles
+#define Np 32 // Number of particles
+double positions[Np];
+double Q[Np];
+double energies[Np];
+double velocities[Np];
+const double time_step = 0.1;
+const double total_time = 25000.0;
+const double E0 = Np;
 void transform_to_normal_modes(double *positions, double *Q, const unsigned int N);
 void calculate_normal_mode_energies(double *energies, double *positions, double *velocities, const unsigned int N);
 
 int main() {
-    calculate_normal_mode_energies(energies, positions, velocities, N);
+
+    calculate_normal_mode_energies(energies, positions, velocities, Np);
     return 0;
 }
 
@@ -74,6 +78,7 @@ void transform_to_normal_modes(double *positions, double *Q, const unsigned int 
     double **transformation_matrix = create_2D_array(N, N);
 
     // Populate it acordingly
+    #pragma omp parallel for collapse(2) // collapse 2 makes the two loops into one, allowing for better parallelization
     for (unsigned int i = 0; i < N; i++) {
         for (unsigned int j = 0; j < N; j++) {
             double ikpi = (double)((i + 1) * (j + 1)) * M_PI;
@@ -103,7 +108,6 @@ void calculate_normal_mode_energies(double *energies, double *positions, double 
 
     double P[N];
     double Q[N];
-
 
     // Transform postions and velocities to normal mode coordinates
     transform_to_normal_modes(positions, Q, N);
