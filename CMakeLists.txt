@@ -125,3 +125,14 @@ target_compile_options(task_7 PRIVATE
     -O3
     -march=native
 )
+
+# H1 Code: ----------------------------------------------------
+
+add_executable(H1
+    H1/src/main.c
+    H1/src/run.c
+)
+
+target_include_directories(H1 PRIVATE
+    H1/include
+)
