@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-project(comp_fys LANGUAGES C)
+project(comp_fys LANGUAGES C CXX)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -131,8 +131,19 @@ target_compile_options(task_7 PRIVATE
 add_executable(H1
     H1/src/main.c
     H1/src/run.c
+    H1/src/lattice.c
+    H1/src/potential.c
+    H1/src/nepc/interface.cpp
+    H1/src/nepc/nep.cpp
 )
 
 target_include_directories(H1 PRIVATE
     H1/include
+    H1/src/nepc
+)
+
+add_custom_command(TARGET H1 POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_CURRENT_SOURCE_DIR}/H1/nep.txt"
+        "$<TARGET_FILE_DIR:H1>/nep.txt"
 )
