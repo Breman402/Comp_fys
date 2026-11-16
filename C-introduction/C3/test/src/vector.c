@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 #include "vector.h"
 
@@ -57,4 +58,19 @@ dot_product(
 		result += v1[i] * v2[i];
 	}
 	return result;
+}
+
+
+// This function calculates the L2 norm of a vector v of length len
+// Added by me to test the testing framework.
+double l2_norm(
+		double *v,
+		unsigned int len
+		)
+{
+	double result = 0;
+	for(int i = 0; i < len; ++i){
+		result += v[i] * v[i];
+	}
+	return sqrt(result);
 }

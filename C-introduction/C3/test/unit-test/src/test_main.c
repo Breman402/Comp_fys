@@ -269,6 +269,19 @@ START_TEST(test_dot_product_properties)
     }
 }
 
+START_TEST(test_l2_norm)
+{
+    // Test the result of some known l2 norm
+    // For example we know that the l2 norm of [3, 4] should be equal to 5
+    double v[] = {3.0, 4.0};
+
+    // Calculate the l2 norm
+    double answer = l2_norm(v, 2);
+
+    // Is the calculated answer equal to the known answer?
+    ck_assert_double_eq_tol(answer, 5.0, 1e-10);
+}
+
 int
 main()
 {
@@ -287,6 +300,7 @@ main()
     add_test(test_elementwise_addition_properties);
     add_test(test_constant_multiplication_properties);
     add_test(test_dot_product_properties);
+    add_test(test_l2_norm);
 
     // Runs the tests and the teardown function and frees some data //
     test_teardown();

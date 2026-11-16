@@ -20,3 +20,8 @@
         ck_assert_double_eq_tol((v1)[__i], (v2)[__i], (tol)); \
     } \
 }
+
+#define check_l2_norm(v, len, expected, tol) { \
+    double __norm = l2_norm((v), (len)); \
+    ck_assert_double_eq_tol(__norm, (expected), (tol)); \
+}

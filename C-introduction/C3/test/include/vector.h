@@ -47,3 +47,8 @@ dot_product(
 	    double *v2,
 	    unsigned int len
 	   );
+
+double l2_norm(
+		double *v,
+		unsigned int len
+		);
