@@ -1,5 +1,5 @@
 CC = gcc
-LIB = -lm
+LIB = -lm -lcheck -lsubunit
 
 # The -Iinclude directive tells the compiler to look for
 # headers files inuder the include folder

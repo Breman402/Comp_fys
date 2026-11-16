@@ -9,9 +9,16 @@ elementwise_addition(
 		     double *v2,
 		     unsigned int len
 	            )
-{
-    for(int i = 0; i < len; ++i){
+{	// This test failed initially. This is how the code used to look like:
+    /*
+	for(int i = 0; i < len; ++i){
 	res[i] = v1[i] + v1[i];
+    }
+	*/
+
+	// And this is the correct implementation:
+	for(int i = 0; i < len; ++i){
+	res[i] = v1[i] + v2[i];
     }
 }
 
@@ -35,9 +42,19 @@ dot_product(
 	    unsigned int len
 	   )
 {
+	// This test failed initially. This is how the code used to look like:
+	/*
     double result = 0;
     for(int i = 0; i < len; ++i){
 	result = v1[i] * v2[i];
     }
     return result;
+	*/
+
+	// And this is the correct implementation:
+	double result = 0;
+	for(int i = 0; i < len; ++i){
+		result += v1[i] * v2[i];
+	}
+	return result;
 }
