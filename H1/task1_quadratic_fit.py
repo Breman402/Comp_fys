@@ -19,7 +19,7 @@ a0 = np.cbrt(V0)
 
 print(f"Theoretical lattice parameter at 0 K: {a0:.5f} Å")
 print(f"Equilibrium unit cell volume: {V0:.5f} Å³")
-
+print(f"Quadratic fit: E(V) = {A:.8f}V² + {B:.8f}V + {C:.8f}")
 # Generate fitted curve
 V_fit = np.linspace(min(V), max(V), 200)
 E_fit = np.polyval([A, B, C], V_fit)
