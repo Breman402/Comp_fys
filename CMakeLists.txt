@@ -99,20 +99,20 @@ add_executable(E1
     E1/main.c
 )
 
-add_executable(task_6
+add_executable(E1_task_6
     E1/task_6.c
 )
 
-add_executable(task_7
+add_executable(E1_task_7
     E1/task_7.c
 )
 
-add_executable(task_10
+add_executable(E1_task_10
     E1/task_10.c
 )
 
-target_link_libraries(task_7 PRIVATE m)
-target_link_libraries(task_10 PRIVATE m)
+target_link_libraries(E1_task_7 PRIVATE m)
+target_link_libraries(E1_task_10 PRIVATE m)
 
 # Maximum optimization for E1
 target_compile_options(E1 PRIVATE
@@ -120,8 +120,8 @@ target_compile_options(E1 PRIVATE
     -march=native
 )
 
-# Maximum optimization for task_7
-target_compile_options(task_7 PRIVATE
+# Maximum optimization for E1_task_7
+target_compile_options(E1_task_7 PRIVATE
     -O3
     -march=native
 )
