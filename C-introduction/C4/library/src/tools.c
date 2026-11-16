@@ -16,6 +16,10 @@ elementwise_addition(
                     )
 {
 
+    for(int i = 0; i < len; i++){
+        res[i] = v1[i] + v2[i];
+    }
+
 }
 
 void
@@ -27,6 +31,10 @@ elementwise_multiplication(
                           )
 {
 
+    for(int i = 0; i < len; i++){
+        res[i] = v1[i] * v2[i];
+    }
+
 }
 
 void
@@ -36,6 +44,10 @@ addition_with_constant(
                        double constant,
                        unsigned int len)
 {
+
+    for(int i = 0; i < len; i++){
+        res[i] = v[i] + constant;
+    }
 
 }
 
@@ -47,6 +59,10 @@ multiplication_with_constant(
                              unsigned int len)
 {
 
+    for(int i = 0; i < len; i++){
+        res[i] = v[i] * constant;
+    }
+
 }
 
 double
@@ -56,26 +72,57 @@ dot_product(
             unsigned int len
            )
 {
-    return 0.;
+
+    double result = 0.0;
+
+    for(int i = 0; i < len; i++){
+        result += v1[i] * v2[i];
+    }
+
+    return result;
 }
 
 double **
 create_2D_array(
-                unsigned int row_size,
-                unsigned int column_size
-               )
+    unsigned int row_size,
+    unsigned int column_size
+)
 {
-    double **array = NULL;
+    if (row_size == 0 || column_size == 0)
+        return NULL;
+
+    double **array = malloc(row_size * sizeof(double *));
+    if (array == NULL)
+        return NULL;
+
+    // Allocate all elements in one contiguous block
+    double *data = calloc(
+        (size_t)row_size * column_size,
+        sizeof(double)
+    );
+    if (data == NULL) {
+        free(array);
+        return NULL;
+    }
+
+    // Point each row to its position in the block
+    for (unsigned int i = 0; i < row_size; i++) {
+        array[i] = data + i * column_size;
+    }
+
     return array;
 }
 
-void
-destroy_2D_array(
-                 double **array,
-                 unsigned int n
-                )
-
+void 
+destroy_2D_array(double **array, unsigned int n)
 {
+    (void)n;
+
+    if (array == NULL)
+        return;
+
+    free(array[0]);
+    free(array);
 }
 
 void
@@ -87,6 +134,11 @@ matrix_vector_multiplication(
                              unsigned int m
                             )
 {
+
+    for (unsigned int i = 0; i < n; i++) {
+        result[i] = dot_product(A[i], b, m);
+    }
+    
 }
 
 void
@@ -99,6 +151,17 @@ matrix_matrix_multiplication(
                              unsigned int k
                             )
 {
+
+    for (unsigned int i = 0; i < n; i++) {
+        for (unsigned int j = 0; j < k; j++) {
+            result[i][j] = 0.0;
+
+            for (unsigned int l = 0; l < m; l++) {
+                result[i][j] += A[i][l] * B[l][j];
+            }
+        }
+    }
+
 }
 
 double
@@ -107,7 +170,14 @@ vector_norm(
             unsigned int len
            )
 {
-    return 0.;
+
+    double result = 0.0;
+
+    for(int i = 0; i < len; i++){
+        result += v1[i] * v1[i];
+    }
+
+    return sqrt(result);
 }
 
 
@@ -117,6 +187,13 @@ normalize_vector(
                  unsigned int len
                 )
 {
+
+    double norm = vector_norm(v1, len);
+
+    for(int i = 0; i < len; i++){
+        v1[i] /= norm;
+    }
+
 }
 
 double
@@ -125,7 +202,11 @@ average(
         unsigned int len
        )
 {
-    return 0.;
+    double sum = 0.0;
+    for(int i = 0; i < len; i++){
+        sum += v1[i];
+    }
+    return sum / len;
 }
 
 
@@ -135,7 +216,12 @@ standard_deviation(
                        unsigned int len
                   )
 {
-    return 0.;
+    double mean = average(v1, len);
+    double sum = 0.0;
+    for(int i = 0; i < len; i++){
+        sum += (v1[i] - mean) * (v1[i] - mean);
+    }
+    return sqrt(sum / len);
 }
 
 double
@@ -145,7 +231,12 @@ distance_between_vectors(
                          unsigned int len
                         )
 {
-    return 0.;
+    double sum = 0.0;
+    for(int i = 0; i < len; i++){
+        sum += (v1[i] - v2[i]) * (v1[i] - v2[i]);
+    }
+    
+    return sqrt(sum);
 }
 
 void
@@ -156,6 +247,12 @@ cumulative_integration(
                        unsigned int v_len
                       )
 {
+    
+    res[0] = 0.0;
+
+    for (unsigned int i = 1; i < v_len; i++) {
+        res[i] = res[i-1] + (v[i-1] + v[i]) * dx / 2.0;
+    }
 
 }
 
@@ -172,7 +269,8 @@ write_xyz(
     fprintf(fp, "%i\nLattice=\"%f 0.0 0.0 0.0 %f 0.0 0.0 0.0 %f\" ", natoms, alat, alat, alat);
     fprintf(fp, "Properties=species:S:1:pos:R:3:vel:R:3 pbc=\"T T T\"\n");
     for(int i = 0; i < natoms; ++i){
-        //
+        fprintf(fp, "%s %f %f %f %f %f %f\n", symbol, positions[i][0], positions[i][1], positions[i][2], velocities[i][0], velocities[i][1], velocities[i][2]);
+
     }
 }
 
@@ -181,6 +279,15 @@ void fft_freq(
               int n,
               double timestep)
 {
+
+    for (int k = 0; k < n; k++) {
+        
+        // Ternary operator: if k < (n + 1) / 2, assign k; otherwise, assign k - n.
+        int freq_k = (k < (n + 1) / 2) ? k : k - n;
+        
+        
+        res[k] = 2 * M_PI * freq_k / (n * timestep);
+    }
 
 }
 

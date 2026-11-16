@@ -20,6 +20,7 @@ CFLAGS_OPT = \
 LIB = \
       -lm \
       -lgsl \
+	  -lsubunit \
       -lgslcblas
 
 OBJ = \
