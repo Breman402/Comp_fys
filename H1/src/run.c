@@ -1,5 +1,9 @@
 #include "tasks.h"
 
+void random_lattice_deviations(const double lattice_param, double** positions, const int num_atoms, const double deviation_factor);
+void solve_equations_of_motion(double** positions, double box_length, const int num_atoms);
+
+
 int run(int argc, char* argv[]) {
   // Write your code here
   // This makes it possible to test

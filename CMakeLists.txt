@@ -143,6 +143,8 @@ target_include_directories(H1 PRIVATE
     H1/src/nepc
 )
 
+target_link_libraries(H1 PRIVATE GSL::gsl m)
+
 add_custom_command(TARGET H1 POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${CMAKE_CURRENT_SOURCE_DIR}/H1/nep.txt"
