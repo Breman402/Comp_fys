@@ -131,6 +131,7 @@ target_compile_options(E1_task_7 PRIVATE
 add_executable(H1
     H1/src/main.c
     H1/src/task1.c
+    H1/src/task2.c
     H1/src/run.c
     H1/src/lattice.c
     H1/src/potential.c
@@ -144,6 +145,12 @@ target_include_directories(H1 PRIVATE
 )
 
 target_link_libraries(H1 PRIVATE GSL::gsl m)
+
+# Maximum optimization for H1
+target_compile_options(H1 PRIVATE
+    -O3
+    -march=native
+)
 
 add_custom_command(TARGET H1 POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different

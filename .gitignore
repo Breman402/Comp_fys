@@ -9,3 +9,4 @@ C-introduction/C3/test/trajectory.dat
 C-introduction/C4/library/obj/
 C-introduction/C4/library/obj_test/
 C-introduction/C4/library/run-test
+*.csv

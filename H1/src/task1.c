@@ -1,5 +1,25 @@
 #include "tasks.h"
 
+void write_task1_CSV(const double E_pot, const double lattice_param, const char* filename) {
+  static int first_call = 1;
+
+  FILE* file = fopen(filename, first_call ? "w" : "a");
+  if (file == NULL) {
+    fprintf(stderr, "Error opening file %s for writing\n", filename);
+    return;
+  }
+
+  // Write header only on the first call
+  if (first_call) {
+    fprintf(file, "E_pot,Lattice_Param\n");
+    first_call = 0;
+  }
+
+  fprintf(file, "%.8f,%.8f\n", E_pot, lattice_param);
+
+  fclose(file);
+}
+
 int task1(const double lattice_param) {
   // Side length of one FCC unit cell in (Å)
 
@@ -39,24 +59,4 @@ int task1(const double lattice_param) {
   }
   free(pos_ptrs);
   return 0;
-}
-
-void write_task1_CSV(const double E_pot, const double lattice_param, const char* filename) {
-  static int first_call = 1;
-
-  FILE* file = fopen(filename, first_call ? "w" : "a");
-  if (file == NULL) {
-    fprintf(stderr, "Error opening file %s for writing\n", filename);
-    return;
-  }
-
-  // Write header only on the first call
-  if (first_call) {
-    fprintf(file, "E_pot,Lattice_Param\n");
-    first_call = 0;
-  }
-
-  fprintf(file, "%.8f,%.8f\n", E_pot, lattice_param);
-
-  fclose(file);
 }
