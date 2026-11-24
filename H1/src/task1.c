@@ -1,62 +1,41 @@
 #include "tasks.h"
 
-void write_task1_CSV(const double E_pot, const double lattice_param, const char* filename) {
-  static int first_call = 1;
-
-  FILE* file = fopen(filename, first_call ? "w" : "a");
-  if (file == NULL) {
-    fprintf(stderr, "Error opening file %s for writing\n", filename);
-    return;
-  }
-
-  // Write header only on the first call
-  if (first_call) {
-    fprintf(file, "E_pot,Lattice_Param\n");
-    first_call = 0;
-  }
-
-  fprintf(file, "%.8f,%.8f\n", E_pot, lattice_param);
-
-  fclose(file);
+void write_task1_header(FILE* file) {
+  fprintf(file, "Lattice_Param,E_pot_per_unit_cell\n");
 }
 
-int task1(const double lattice_param) {
-  // Side length of one FCC unit cell in (Å)
+void write_task1_CSV(FILE* file, const double E_pot, const double lattice_param) {
+  fprintf(file, "%.8f,%.8f\n", lattice_param, E_pot);
+}
 
-  // Matrix in which atomic positions are stored
-  // Allocate memory for the positions of the atoms
-  double** pos_ptrs = (double**)malloc(numberOfAtoms * sizeof(double*));
-  if (pos_ptrs == NULL) {
-    fprintf(stderr, "Memory allocation failed for pos_ptrs\n");
+int task1(const double lattice_start, const double lattice_end, const double lattice_step_size) {
+  FILE* file = fopen("task1_results.csv", "w");
+  if (file == NULL) {
+    fprintf(stderr, "Error opening task1_results.csv for writing\n");
     return 1;
   }
 
-  // Allocate memory for each atom's position (3 coordinates)
-  for (int i = 0; i < numberOfAtoms; i++) {
-    pos_ptrs[i] = (double*)malloc(3 * sizeof(double));
-    if (pos_ptrs[i] == NULL) {
-      fprintf(stderr, "Memory allocation failed for pos_ptrs[%d]\n", i);
-      // Free previously allocated memory before returning
-      for (int j = 0; j < i; j++) {
-        free(pos_ptrs[j]);
-      }
-      free(pos_ptrs);
-      return 1;
-    }
+  write_task1_header(file);
+
+  double** pos_ptrs = create_2D_array(numberOfAtoms, 3);
+  if (pos_ptrs == NULL) {
+    fprintf(stderr, "Memory allocation failed for atom positions\n");
+    fclose(file);
+    return 1;
   }
 
-  // Initialize the fcc lattice
-  init_fcc(pos_ptrs, N, lattice_param);
+  const int num_steps = (int)((lattice_end - lattice_start) / lattice_step_size + 0.5);
 
-  const double E_pot = get_energy_AL(pos_ptrs, N * lattice_param, numberOfAtoms);
+  for (int i = 0; i <= num_steps; i++) {
+    const double lattice_param = lattice_start + i * lattice_step_size;
+    init_fcc(pos_ptrs, N, lattice_param);
 
-  // Write the results to a CSV file
-  write_task1_CSV(E_pot / (N * N * N), lattice_param, "task1_results.csv");
+    const double E_pot = get_energy_AL(pos_ptrs, N * lattice_param, numberOfAtoms);
 
-  // Free allocated memory
-  for (int i = 0; i < numberOfAtoms; i++) {
-    free(pos_ptrs[i]);
+    write_task1_CSV(file, E_pot / (N * N * N), lattice_param);
   }
-  free(pos_ptrs);
+
+  destroy_2D_array(pos_ptrs);
+  fclose(file);
   return 0;
 }

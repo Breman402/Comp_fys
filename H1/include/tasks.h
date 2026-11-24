@@ -8,6 +8,7 @@
 
 #include "lattice.h"
 #include "potential.h"
+#include "tools.h"
 
 #define N 4                            // Number of unit cells in each direction
 #define numberOfAtoms (N * N * N * 4)  // Number of atoms in the lattice
@@ -22,5 +23,5 @@
 #define TASK2_MASS (26.9815 / 9649.0)       // Mass of each atom (arbitrary units)
 #define EQUILIBRIUM_LATTICE_PARAMETER 4.03  // This was obtained from task 1, and is used for task 2
 
-int task1(const double lattice_param);
+int task1(const double lattice_start, const double lattice_end, const double lattice_step_size);
 int task2(const double lattice_param);

@@ -199,24 +199,10 @@ void solve_equations_of_motion(double** positions, double box_length, const int 
  * @return 0 on success, 1 on failure.
  */
 int task2(double lattice_param) {
-  double** pos_ptrs = (double**)malloc(numberOfAtoms * sizeof(double*));
+  double** pos_ptrs = create_2D_array(numberOfAtoms, 3);
   if (pos_ptrs == NULL) {
-    fprintf(stderr, "Memory allocation failed for pos_ptrs\n");
+    fprintf(stderr, "Memory allocation failed for atom positions\n");
     return 1;
-  }
-
-  // Allocate memory for each atom's position (3 coordinates)
-  for (int i = 0; i < numberOfAtoms; i++) {
-    pos_ptrs[i] = (double*)malloc(3 * sizeof(double));
-    if (pos_ptrs[i] == NULL) {
-      fprintf(stderr, "Memory allocation failed for pos_ptrs[%d]\n", i);
-      // Free previously allocated memory before returning
-      for (int j = 0; j < i; j++) {
-        free(pos_ptrs[j]);
-      }
-      free(pos_ptrs);
-      return 1;
-    }
   }
   // Initialize the fcc lattice
   init_fcc(pos_ptrs, N, lattice_param);
@@ -227,10 +213,6 @@ int task2(double lattice_param) {
   // Solve the equations of motion using velocity Verlet with periodic boundary conditions
   solve_equations_of_motion(pos_ptrs, N * lattice_param, numberOfAtoms);
 
-  // Free allocated memory
-  for (int i = 0; i < numberOfAtoms; i++) {
-    free(pos_ptrs[i]);
-  }
-  free(pos_ptrs);
+  destroy_2D_array(pos_ptrs);
   return 0;
 }

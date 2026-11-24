@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 data = pd.read_csv("task1_results.csv")
 
 a = data["Lattice_Param"].to_numpy()
-E = data["E_pot"].to_numpy()
+E = data["E_pot_per_unit_cell"].to_numpy()
 
 # Convert lattice parameter to unit cell volume
 V = a**3
