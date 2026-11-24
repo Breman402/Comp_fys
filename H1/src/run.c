@@ -25,6 +25,11 @@ int run(int argc, char* argv[]) {
   return 0;
 }
 
+/**
+ * Task 2
+ * @param lattice_param The lattice parameter.
+ * @return 0 on success, 1 on failure.
+ */
 int task2(double lattice_param) {
   double** pos_ptrs = (double**)malloc(numberOfAtoms * sizeof(double*));
   if (pos_ptrs == NULL) {
@@ -67,6 +72,13 @@ int task2(double lattice_param) {
   return 0;
 }
 
+/*
+ * Introduces random deviations to the lattice positions.
+ * @param lattice_param The lattice parameter.
+ * @param positions The array of atom positions.
+ * @param num_atoms The number of atoms.
+ * @param deviation_factor The factor by which to scale the deviations (in %).
+ */
 void random_lattice_deviations(const double lattice_param, double** positions, const int num_atoms, const double deviation_factor) {
   gsl_rng* rng = gsl_rng_alloc(gsl_rng_default);
 
@@ -87,6 +99,12 @@ void random_lattice_deviations(const double lattice_param, double** positions, c
   gsl_rng_free(rng);
 }
 
+/*
+ * Solves the equations of motion using velocity Verlet with periodic boundary conditions.
+ * @param positions The array of atom positions.
+ * @param box_length The length of the simulation box.
+ * @param num_atoms The number of atoms.
+ */
 void solve_equations_of_motion(double** positions, double box_length, const int num_atoms) {
   
   // Alocate velocities, forces and new_forces
@@ -112,6 +130,16 @@ void solve_equations_of_motion(double** positions, double box_length, const int 
   return;
 }
 
+/**
+ * Performs one step of the velocity Verlet integration algorithm with periodic boundary conditions.
+ * @param positions The array of atom positions.
+ * @param velocities The array of atom velocities.
+ * @param forces The array of current forces acting on the atoms.
+ * @param new_forces The array to store the newly calculated forces after updating positions.
+ * @param box_length The length of the simulation box.
+ * @param mass The mass of the atoms.
+ * @param timestep The time step for the integration.
+ */
 void velocity_verlet_one_step(double** positions, double** velocities, double** forces, double** new_forces, double box_length, double mass, double timestep) {
   // 1. Update the positions of ALL atoms
   for (int i = 0; i < numberOfAtoms; i++) {
