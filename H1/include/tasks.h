@@ -17,7 +17,7 @@
 #define LATTICE_END 4.08
 
 #define TASK2_DEVIATION_FACTOR 0.065        // Maximum deviation factor for random lattice deviations
-#define TASK2_TIMESTEP 0.05                // Time step for velocity Verlet integration (started at 0.001 ps, tested 0.01 ps and 0.1 ps)
+#define TASK2_TIMESTEP 0.01                // Time step for velocity Verlet integration (started at 0.001 ps, tested 0.01 ps and 0.1 ps)
 #define TASK2_TOTAL_TIME 5.0                  // Total simulation time in ps
 #define TASK2_NUM_STEPS (int)(TASK2_TOTAL_TIME / TASK2_TIMESTEP)  // Number of steps for velocity Verlet integration
 #define TASK2_MASS (26.9815 / 9649.0)       // Mass of each atom (arbitrary units)
