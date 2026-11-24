@@ -14,5 +14,11 @@ int run(int argc, char* argv[]) {
     return 1;
   }
 
+  fprintf(stdout, "Starting task3\n");
+  if (task3() != 0) {
+    fprintf(stderr, "Error occurred while running task3\n");
+    return 1;
+  }
+
   return 0;
 }

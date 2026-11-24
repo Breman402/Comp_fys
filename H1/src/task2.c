@@ -199,19 +199,19 @@ void solve_equations_of_motion(double** positions, double box_length, const int 
  * @return 0 on success, 1 on failure.
  */
 int task2(double lattice_param) {
-  double** pos_ptrs = create_2D_array(numberOfAtoms, 3);
+  double** pos_ptrs = create_2D_array(N_ATOMS, 3);
   if (pos_ptrs == NULL) {
     fprintf(stderr, "Memory allocation failed for atom positions\n");
     return 1;
   }
   // Initialize the fcc lattice
-  init_fcc(pos_ptrs, N, lattice_param);
+  init_fcc(pos_ptrs, N_CELLS, lattice_param);
 
   // Introduce random deviations
-  random_lattice_deviations(lattice_param, pos_ptrs, numberOfAtoms, TASK2_DEVIATION_FACTOR);
+  random_lattice_deviations(lattice_param, pos_ptrs, N_ATOMS, TASK2_DEVIATION_FACTOR);
 
   // Solve the equations of motion using velocity Verlet with periodic boundary conditions
-  solve_equations_of_motion(pos_ptrs, N * lattice_param, numberOfAtoms);
+  solve_equations_of_motion(pos_ptrs, N_CELLS * lattice_param, N_ATOMS);
 
   destroy_2D_array(pos_ptrs);
   return 0;

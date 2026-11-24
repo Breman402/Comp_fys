@@ -30,7 +30,7 @@ endif
 LOCAL_LIB_FLAG := $(if $(wildcard $(LOCAL)/lib),-L$(LOCAL)/lib)
 
 LIB := $(LOCAL_LIB_FLAG) -L$(LIBDIR) -lm -lgsl -lgslcblas -lnep
-OBJ := obj/tools.o obj/lattice.o obj/potential.o obj/task1.o obj/task2.o obj/run.o
+OBJ := obj/tools.o obj/lattice.o obj/potential.o obj/task1.o obj/task2.o obj/task3.o obj/run.o
 OBJ_LIB := obj_nep/nep.o obj_nep/interface.o
 CXXFLAGS := -DUSE_TABLE_FOR_RADIAL_FUNCTIONS -O3 -fPIC -Iinclude -Isrc/nepc
 MAIN := obj/main.o

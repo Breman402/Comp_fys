@@ -17,7 +17,7 @@ int task1(const double lattice_start, const double lattice_end, const double lat
 
   write_task1_header(file);
 
-  double** pos_ptrs = create_2D_array(numberOfAtoms, 3);
+  double** pos_ptrs = create_2D_array(N_ATOMS, 3);
   if (pos_ptrs == NULL) {
     fprintf(stderr, "Memory allocation failed for atom positions\n");
     fclose(file);
@@ -28,11 +28,11 @@ int task1(const double lattice_start, const double lattice_end, const double lat
 
   for (int i = 0; i <= num_steps; i++) {
     const double lattice_param = lattice_start + i * lattice_step_size;
-    init_fcc(pos_ptrs, N, lattice_param);
+    init_fcc(pos_ptrs, N_CELLS, lattice_param);
 
-    const double E_pot = get_energy_AL(pos_ptrs, N * lattice_param, numberOfAtoms);
+    const double E_pot = get_energy_AL(pos_ptrs, N_CELLS * lattice_param, N_ATOMS);
 
-    write_task1_CSV(file, E_pot / (N * N * N), lattice_param);
+    write_task1_CSV(file, E_pot / (N_CELLS * N_CELLS * N_CELLS), lattice_param);
   }
 
   destroy_2D_array(pos_ptrs);
