@@ -9,11 +9,11 @@
  * **********************************************/
 void
 elementwise_addition(
-                     double *res,
-                     double *v1,
-                     double *v2,
-                     unsigned int len
-                    );
+        double *res,
+        double *v1,
+        double *v2,
+        unsigned int len
+        );
 
 /* **********************************************
  *
@@ -24,11 +24,11 @@ elementwise_addition(
  * **********************************************/
 void
 elementwise_multiplication(
-                           double *res,
-                           double *v1,
-                           double *v2,
-                           unsigned int len
-                          );
+        double *res,
+        double *v1,
+        double *v2,
+        unsigned int len
+        );
 
 /* **********************************************
  *
@@ -39,11 +39,11 @@ elementwise_multiplication(
  * **********************************************/
 void
 addition_with_constant(
-                       double *res,
-                       double *v,
-                       double constant,
-                       unsigned int len
-                      );
+        double *res,
+        double *v,
+        double constant,
+        unsigned int len
+        );
 
 /* **********************************************
  *
@@ -54,11 +54,11 @@ addition_with_constant(
  * **********************************************/
 void
 multiplication_with_constant(
-                             double *res,
-                             double *v,
-                             double constant,
-                             unsigned int len
-                            );
+        double *res,
+        double *v,
+        double constant,
+        unsigned int len
+        );
 
 /* **********************************************
  *
@@ -70,10 +70,10 @@ multiplication_with_constant(
  * **********************************************/
 double
 dot_product(
-            double *v1,
-            double *v2,
-            unsigned int len
-           );
+        double *v1,
+        double *v2,
+        unsigned int len
+        );
 
 
 /* **********************************************
@@ -82,29 +82,28 @@ dot_product(
  *
  * Array is the varible in which in the array is
  * stored.
- * The matrix is of size n x m.
+ * The matrix is of size rows x cols.
  *
  * **********************************************/
 double **
 create_2D_array(
-                unsigned int n,
-                unsigned int m
-               );
+        unsigned int rows,
+        unsigned int cols
+        );
 
 /* **********************************************
  *
  * Deallocate the memory of a 2D array
  *
- * The input n is option and is not necessary.
+ * The input rows is option and is not necessary.
  * Try to find a solution in create_2D_array
- * that allows you to not use n.
+ * that allows you to not use rows.
  *
  * **********************************************/
 void
 destroy_2D_array(
-                 double **array,
-                 unsigned int n
-                );
+        double **array
+        );
 
 
 /* **********************************************
@@ -115,19 +114,19 @@ destroy_2D_array(
  *
  * with dimensions
  *
- * n x 1 ::: n x m ::: m x 1
+ * rows x 1 ::: rows x inner ::: inner x 1
  *
- * The n x 1 matrices y and b are represented as plain vectors
+ * The rows x 1 matrices y and b are represented as plain vectors
  *
  * **********************************************/
 void
 matrix_vector_multiplication(
-                             double *y,
-                             double **A,
-                             double *b,
-                             unsigned int n,
-                             unsigned int m
-                            );
+        double *y,
+        double **A,
+        double *b,
+        unsigned int rows,
+        unsigned int inner
+        );
 
 /* **********************************************
  *
@@ -137,44 +136,44 @@ matrix_vector_multiplication(
  *
  * with dimensions
  *
- * n x k ::: n x m ::: m x k
+ * rows x cols ::: rows x inner ::: inner x cols
  *
  * **********************************************/
 void
 matrix_matrix_multiplication(
-                             double **Y,
-                             double **A,
-                             double **B,
-                             unsigned int n,
-                             unsigned int m,
-                             unsigned int k
-                            );
+        double **Y,
+        double **A,
+        double **B,
+        unsigned int rows,
+        unsigned int inner,
+        unsigned int cols
+        );
 
 /* **********************************************
  *
- * Calculates the L2 norm of v with length
+ * Calculates the L2 norm of v1 with length
  * len
  *
  * **********************************************/
 double
 vector_norm(
-            double *v,
-            unsigned int len
-           );
+        double *v1,
+        unsigned int len
+        );
 
 /* **********************************************
  *
- * Normalizes the vector v such that the L2
- * norm of v is 1.
+ * Normalizes the vector v1 such that the L2
+ * norm of v1 is 1.
  *
  * The length of the vector is len
  *
  * **********************************************/
 void
 normalize_vector(
-                 double *v,
-                 unsigned int len
-                );
+        double *v1,
+        unsigned int len
+        );
 
 /* **********************************************
  *
@@ -184,9 +183,9 @@ normalize_vector(
  * **********************************************/
 double
 average(
-        double *v,
+        double *v1,
         unsigned int len
-       );
+        );
 
 /* **********************************************
  *
@@ -196,9 +195,9 @@ average(
  * **********************************************/
 double
 standard_deviation(
-                   double *v,
-                   unsigned int len
-                  );
+        double *v1,
+        unsigned int len
+        );
 
 /* **********************************************
  *
@@ -208,10 +207,10 @@ standard_deviation(
  * **********************************************/
 double
 distance_between_vectors(
-                         double *v1,
-                         double *v2,
-                         unsigned int len
-                        );
+        double *v1,
+        double *v2,
+        unsigned int len
+        );
 
 /* **********************************************
  *
@@ -224,11 +223,11 @@ distance_between_vectors(
  * **********************************************/
 void
 cumulative_integration(
-                       double *res,
-                       double *v,
-                       double dx,
-                       unsigned int len
-                      );
+        double *res,
+        double *v,
+        double dx,
+        unsigned int len
+        );
 
 
 /* **********************************************
@@ -244,13 +243,13 @@ cumulative_integration(
  * **********************************************/
 void
 write_xyz(
-          FILE *fp,
-          char *symbol,
-          double **positions,
-          double **velocities,
-          double alat,
-          int natoms
-         );
+        FILE *fp,
+        char *symbol,
+        double **positions,
+        double **velocities,
+        double alat,
+        int natoms
+        );
 
 
 /* **********************************************
@@ -263,12 +262,13 @@ write_xyz(
  * signal values.
  *
  * **********************************************/
-void powerspectrum(
-                   double *res,
-                   double *signal,
-                   int n,
-                   double timestep
-                  );
+void 
+powerspectrum(
+        double *res,
+        double *signal,
+        int n,
+        double timestep
+        );
 
 
 /* **********************************************
@@ -284,11 +284,12 @@ void powerspectrum(
  * check powerspectrum for arguments.
  *
  * **********************************************/
-void fft_freq(
-              double *res,
-              int n,
-              double timestep
-             );
+void 
+fft_freq(
+        double *res,
+        int n,
+        double timestep
+        );
 
 
 /* **********************************************
@@ -298,9 +299,9 @@ void fft_freq(
  * **********************************************/
 void
 read_xyz(
-         FILE *fp,
-         char *symbol,
-         double **positions,
-         double **velocities,
-         double *alat
+        FILE *fp,
+        char *symbol,
+        double **positions,
+        double **velocities,
+        double *alat
         );

@@ -10,3 +10,9 @@ C-introduction/C4/library/obj/
 C-introduction/C4/library/obj_test/
 C-introduction/C4/library/run-test
 *.csv
+H1/obj/
+H1/obj_nep/
+H1/obj_test/
+H1/lib/
+H1/H1
+H1/run-test
