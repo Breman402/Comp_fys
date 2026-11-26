@@ -132,6 +132,8 @@ add_executable(H1
     H1/src/main.c
     H1/src/task1.c
     H1/src/task2.c
+    H1/src/task3.c
+    H1/src/tools.c
     H1/src/run.c
     H1/src/lattice.c
     H1/src/potential.c
