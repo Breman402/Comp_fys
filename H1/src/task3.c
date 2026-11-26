@@ -19,14 +19,14 @@
 #define timeStep 0.001 // ps
 
 #define TAU_T (500.0 * timeStep)
-#define TAU_P (1000.0 * timeStep)
+#define TAU_P (500.0 * timeStep)
 
-#define EQUILIBRATION_TIME 20.0 // ps
-#define PRODUCTION_TIME 50.0    // ps
+#define EQUILIBRATION_TIME 15.0 // ps
+#define CONSTANT_TIME 20.0   // ps
 
 #define EQUILIBRATION_STEPS ((unsigned int)(EQUILIBRATION_TIME / timeStep))
 
-#define PRODUCTION_STEPS ((unsigned int)(PRODUCTION_TIME / timeStep))
+#define CONSTANT_STEPS ((unsigned int)(CONSTANT_TIME / timeStep))
 
 static double calculate_kinetic_energy(double **velocities)
 {
@@ -303,7 +303,7 @@ int task3(void)
     double **forces = create_2D_array(N_ATOMS, 3);
 
     FILE *equilibration_file = NULL;
-    FILE *production_file = NULL;
+    FILE *constant_file = NULL;
 
     if (!positions || !velocities || !forces) {
         fprintf(stderr, "Memory allocation failed\n");
@@ -352,25 +352,25 @@ int task3(void)
     );
 
     /*
-     * PRODUCTION
+     * CONSTANT
      */
 
-    production_file = fopen("H1_task3_prod.csv", "w");
+    constant_file = fopen("H1_task3_const.csv", "w");
 
-    if (production_file == NULL) {
+    if (constant_file == NULL) {
         goto cleanup;
     }
 
-    write_csv_header(production_file);
+    write_csv_header(constant_file);
 
     if (run_simulation(
-        production_file,
+        constant_file,
         positions,
         velocities,
         forces,
         &cell_length,
         timeStep,
-        PRODUCTION_STEPS,
+        CONSTANT_STEPS,
         EQUILIBRATION_STEPS * timeStep,
         0, // Thermostat disabled
         0  // Barostat disabled
@@ -386,8 +386,8 @@ cleanup:
         fclose(equilibration_file);
     }
 
-    if (production_file != NULL) {
-        fclose(production_file);
+    if (constant_file != NULL) {
+        fclose(constant_file);
     }
 
     destroy_2D_array(positions);

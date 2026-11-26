@@ -1,0 +1,8 @@
+Equilibration data (last 2 ps)
+Average lattice parameter: 4.113068 Å
+Lattice parameter standard deviation: 0.000708 Å
+Final lattice parameter: 4.111490 Å
+Average temperature: 772.6780 K
+Average pressure: -127.2470 bar
+Temperature standard deviation: 25.9944 K
+Pressure standard deviation: 1429.8600 bar

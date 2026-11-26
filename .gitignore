@@ -16,3 +16,4 @@ H1/obj_test/
 H1/lib/
 H1/H1
 H1/run-test
+!H1/task3_output/**

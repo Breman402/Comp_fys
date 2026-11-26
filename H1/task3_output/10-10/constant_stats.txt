@@ -1,0 +1,6 @@
+Constant energy and volume data
+Lattice parameter: 4.112326 Å
+Average temperature: 772.9162 K
+Average pressure: 8.4191 bar
+Temperature standard deviation: 29.6609 K
+Pressure standard deviation: 1678.9835 bar
